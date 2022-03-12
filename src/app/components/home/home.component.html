@@ -1,0 +1,68 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand">Search with</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Name</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="genres">Genres</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="developers">Developers</a>
+        </li>
+        
+      </ul>
+      <form class="d-flex" #form="ngForm" (ngSubmit)="onSubmit(form)">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search"
+        ngModel>
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+    </div>
+  </div>
+</nav>
+
+
+
+  <div class="filters">
+    <mat-form-field>
+      <mat-label>Sort</mat-label>
+      <mat-select
+        panelClass="sort-select"
+        [(ngModel)]="sort"
+        (selectionChange)="searchGames(sort)"
+      >
+        <mat-option value="name">Name</mat-option>
+        <mat-option value="-released">Released</mat-option>
+        <mat-option value="-added">Added</mat-option>
+        <mat-option value="-created">Created</mat-option>
+        <mat-option value="-updated">Updated</mat-option>
+        <mat-option value="-rating">Rating</mat-option>
+        <mat-option value="metacritic">Metacritic</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+
+  <div class="games">
+      <ng-container *ngFor="let game of games">
+      <div class="game" (click)="openGameDetails(game.id)">
+          <div class="game-thumb-container">
+              <img 
+              *ngIf="game.background_image"
+              src="{{game.background_image}}" 
+              alt="thumbnail" 
+              class="game-thumbnail">
+              <p *ngIf="!game.background_image">No image</p>
+          </div>
+
+          <div class="game-description">
+              <p class="game-name">{{game.name}}</p>
+          </div>
+      </div>
+    </ng-container>
+  </div>
